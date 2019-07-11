@@ -1,5 +1,5 @@
 package org.junit;
-
+//test
 import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
 import org.junit.validator.TestClassValidator; // Depdenency rules
