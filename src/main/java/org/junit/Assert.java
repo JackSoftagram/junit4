@@ -4,7 +4,7 @@ package org.junit;
 //test
 import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
-import org.junit.validator.TestClassValidator; // Depdenency rules
+import org.junit.validator.TestClassValidator; // Dependency rules
 //import org.junit.function.ThrowingRunnable;
 import org.junit.internal.ArrayComparisonFailure;
 import org.junit.internal.ExactComparisonCriteria;
