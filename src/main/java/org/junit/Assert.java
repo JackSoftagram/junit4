@@ -2,7 +2,7 @@ package org.junit;
 //test
 //test
 //test
-import org.hamcrest.Matcher;
+//import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
 import org.junit.validator.TestClassValidator; // Dependency rules
 import org.junit.function.ThrowingRunnable;
