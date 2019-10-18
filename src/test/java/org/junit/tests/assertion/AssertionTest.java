@@ -1,5 +1,4 @@
 package org.junit.tests.assertion;
-// test!
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
