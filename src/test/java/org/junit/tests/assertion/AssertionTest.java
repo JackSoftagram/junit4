@@ -1,6 +1,6 @@
 package org.junit.tests.assertion;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+//import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertArrayEquals;
