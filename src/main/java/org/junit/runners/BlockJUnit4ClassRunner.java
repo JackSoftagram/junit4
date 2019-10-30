@@ -2,7 +2,7 @@ package org.junit.runners;
 
 //testing co-file-change function, removing import below:
 //import static org.junit.internal.runners.rules.RuleMemberValidator.RULE_METHOD_VALIDATOR;
-//import static org.junit.internal.runners.rules.RuleMemberValidator.RULE_VALIDATOR;
+import static org.junit.internal.runners.rules.RuleMemberValidator.RULE_VALIDATOR;
 
 import java.util.ArrayList;
 import java.util.List;
