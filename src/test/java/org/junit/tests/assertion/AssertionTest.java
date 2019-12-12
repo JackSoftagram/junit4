@@ -66,7 +66,38 @@ public class AssertionTest {
         }
         throw new AssertionError(ASSERTION_ERROR_EXPECTED);
     }
+private static final String ASSERTION_ERROR_EXPECTED = "AssertionError expected";
 
+    @Test(expected = AssertionError.class)
+    public void stringContentEqual() {
+        Assert.assertContentsEqual("String", "String2");
+    }
+    
+    @Test(expected = AssertionError.class)
+    public void stringbuilderContentEqual() {
+        Assert.assertContentsEqual(new StringBuilder("String"), new StringBuilder("String2"));
+    }
+    
+    @Test
+    public void stringbufferContentEqual() {
+        Assert.assertContentsEqual(new StringBuffer("String"), new StringBuffer("String"));
+    }
+    
+    @Test(expected = AssertionError.class)
+    public void fails() {
+        Assert.fail();
+    }
+
+    @Test
+    public void failWithNoMessageToString() {
+        try {
+            Assert.fail();
+        } catch (AssertionError exception) {
+            assertEquals("java.lang.AssertionError", exception.toString());
+            return;
+        }
+        throw new AssertionError(ASSERTION_ERROR_EXPECTED);
+    }
     @Test
     public void failWithMessageToString() {
         try {
