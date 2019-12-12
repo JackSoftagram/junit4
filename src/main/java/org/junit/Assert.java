@@ -207,6 +207,21 @@ public class Assert {
      */
     public static void assertNotEquals(Object unexpected, Object actual) {
         assertNotEquals(null, unexpected, actual);
+        {
+        if (expected.length() != actual.length()) {
+            failNotEquals(message, expected, actual);
+        }
+        for (int i = 0; i < expected.length(); i++) {
+            if (expected.charAt(i) != actual.charAt(i))
+                failNotEquals(message, expected, actual);
+        }{
+        if (expected.length() != actual.length()) {
+            failNotEquals(message, expected, actual);
+        }
+        for (int i = 0; i < expected.length(); i++) {
+            if (expected.charAt(i) != actual.charAt(i))
+                failNotEquals(message, expected, actual);
+        }
     }
 
     private static void failEquals(String message, Object actual) {
