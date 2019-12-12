@@ -107,6 +107,45 @@ public class AssertionTest {
     }
 
     @Test
+    public void failWithMessageToString() {
+        try {
+            Assert.fail("woops!");
+        } catch (AssertionError exception) {
+            assertEquals("java.lang.AssertionError: woops!", exception.toString());
+            return;
+        }
+        throw new AssertionError(ASSERTION_ERROR_EXPECTED);
+    }
+
+    @Test
+    public void arraysNotEqual() {
+        assertArrayEqualsFailure(
+                new Object[]{"right"},
+                new Object[]{"wrong"},
+                "arrays first differed at element [0]; expected:<[right]> but was:<[wrong]>");
+    }
+
+    @Test
+    public void arraysNotEqualWithMessage() {
+        assertArrayEqualsFailure(
+                "not equal",
+                new Object[]{"right"},
+                new Object[]{"wrong"},
+                "not equal: arrays first differed at element [0]; expected:<[right]> but was:<[wrong]>");
+    }
+
+    @Test
+    public void arraysExpectedNullMessage() {
+        try {
+            assertArrayEquals("not equal", null, new Object[]{new Object()});
+        } catch (AssertionError exception) {
+            assertEquals("not equal: expected array was null", exception.getMessage());
+            return;
+        }
+        throw new AssertionError(ASSERTION_ERROR_EXPECTED);
+    }
+
+    @Test
     public void arraysActualNullMessage() {
         try {
             assertArrayEquals("not equal", new Object[]{new Object()}, null);
