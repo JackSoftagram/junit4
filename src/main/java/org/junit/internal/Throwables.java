@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import junit.runner.Version; // shouldn't do this really! just a demo..
+import junit.tests.SampleJUnit3Tests; //for report testing
+
 
 /**
  * Miscellaneous functions dealing with {@code Throwable}.
@@ -232,7 +235,10 @@ public final class Throwables {
         "org.junit.runners.",
         "org.junit.experimental.runners.",
         "org.junit.internal.",
-        "junit.",
+        "junit.extensions",
+        "junit.framework",
+        "junit.runner",
+        "junit.textui",
     };
 
     private static final String[] TEST_FRAMEWORK_TEST_METHOD_NAME_PREFIXES = {
