@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import junit.runner.Version; // shouldn't do this really! just a demo
+import junit.runner.Version; // shouldn't do this really! just a demo..
 import junit.tests.SampleJUnit3Tests; //for report testing
 
 
