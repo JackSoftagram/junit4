@@ -1,6 +1,6 @@
 package org.junit.tests.assertion;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+//import static org.hamcrest.CoreMatchers.equalTo; //
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertArrayEquals;
@@ -37,6 +37,21 @@ public class AssertionTest {
     private static final String ASSERTION_ERROR_EXPECTED = "AssertionError expected";
 
     @Test(expected = AssertionError.class)
+    public void stringContentEqual() {
+        Assert.assertContentsEqual("String", "String2");
+    }
+    
+    @Test(expected = AssertionError.class)
+    public void stringbuilderContentEqual() {
+        Assert.assertContentsEqual(new StringBuilder("String"), new StringBuilder("String2"));
+    }
+    
+    @Test
+    public void stringbufferContentEqual() {
+        Assert.assertContentsEqual(new StringBuffer("String"), new StringBuffer("String"));
+    }
+    
+    @Test(expected = AssertionError.class)
     public void fails() {
         Assert.fail();
     }
@@ -47,6 +62,45 @@ public class AssertionTest {
             Assert.fail();
         } catch (AssertionError exception) {
             assertEquals("java.lang.AssertionError", exception.toString());
+            return;
+        }
+        throw new AssertionError(ASSERTION_ERROR_EXPECTED);
+    }
+
+    @Test
+    public void failWithMessageToString() {
+        try {
+            Assert.fail("woops!");
+        } catch (AssertionError exception) {
+            assertEquals("java.lang.AssertionError: woops!", exception.toString());
+            return;
+        }
+        throw new AssertionError(ASSERTION_ERROR_EXPECTED);
+    }
+
+    @Test
+    public void arraysNotEqual() {
+        assertArrayEqualsFailure(
+                new Object[]{"right"},
+                new Object[]{"wrong"},
+                "arrays first differed at element [0]; expected:<[right]> but was:<[wrong]>");
+    }
+
+    @Test
+    public void arraysNotEqualWithMessage() {
+        assertArrayEqualsFailure(
+                "not equal",
+                new Object[]{"right"},
+                new Object[]{"wrong"},
+                "not equal: arrays first differed at element [0]; expected:<[right]> but was:<[wrong]>");
+    }
+
+    @Test
+    public void arraysExpectedNullMessage() {
+        try {
+            assertArrayEquals("not equal", null, new Object[]{new Object()});
+        } catch (AssertionError exception) {
+            assertEquals("not equal: expected array was null", exception.getMessage());
             return;
         }
         throw new AssertionError(ASSERTION_ERROR_EXPECTED);
@@ -317,7 +371,61 @@ public class AssertionTest {
                 new Object[][]{{}, {true}},
                 "not equal: array lengths differed, expected.length=0 actual.length=1; arrays first differed at element [1][0]; expected:<end of array> but was:<true>");
     }
+  assertArrayEqualsFailure(
+                "not equal",
+                new Object[][]{{}},
+                new Object[][]{{true}, {}},
+                "not equal: array lengths differed, expected.length=0 actual.length=1; arrays first differed at element [0][0]; expected:<end of array> but was:<true>");
+        assertArrayEqualsFailure(
+                "not equal",
+                new Object[][]{{}},
+                new Object[][]{{}, {true}},
+                "not equal: array lengths differed, expected.length=1 actual.length=2; arrays first differed at element [1]; expected:<end of array> but was:<java.lang.Object[1]>");
+    }
 
+    @Test
+    public void primitiveArraysConvertedToStringCorrectly() {
+        assertArrayEqualsFailure(
+                "not equal",
+                new boolean[][]{{}, {true}},
+                new boolean[][]{{}},
+                "not equal: array lengths differed, expected.length=2 actual.length=1; arrays first differed at element [1]; expected:<boolean[1]> but was:<end of array>");
+        assertArrayEqualsFailure(
+                "not equal",
+                new int[][]{{}, {23}},
+                new int[][]{{}},
+                "not equal: array lengths differed, expected.length=2 actual.length=1; arrays first differed at element [1]; expected:<int[1]> but was:<end of array>");
+    }
+
+    @Test
+    public void twoDimensionalArraysConvertedToStringCorrectly() {
+        assertArrayEqualsFailure(
+                "not equal",
+                new Object[][][]{{}, {{true}}},
+                new Object[][][]{{}},
+                "not equal: array lengths differed, expected.length=2 actual.length=1; arrays first differed at element [1]; expected:<java.lang.Object[][1]> but was:<end of array>");
+    }
+
+    @Test
+    public void twoDimensionalArraysDifferentInnerLengthNotEqual() {
+        assertArrayEqualsFailure(
+                "not equal",
+                new Object[][]{{true}, {}},
+                new Object[][]{{}, {}},
+                "not equal: array lengths differed, expected.length=1 actual.length=0; arrays first differed at element [0][0]; expected:<true> but was:<end of array>");
+        assertArrayEqualsFailure(
+                "not equal",
+                new Object[][]{{}, {true}},
+                new Object[][]{{}, {}},
+                "not equal: array lengths differed, expected.length=1 actual.length=0; arrays first differed at element [1][0]; expected:<true> but was:<end of array>");
+        assertArrayEqualsFailure(
+                "not equal",
+                new Object[][]{{}, {}},
+                new Object[][]{{true}, {}},
+                "not equal: array lengths differed, expected.length=0 actual.length=1; arrays first differed at element [0][0]; expected:<end of array> but was:<true>");
+        assertArrayEqualsFailure(
+                "not equal",
+                new Object[][]{{}, {}}
     private void assertArrayEqualsFailure(Object[] expecteds, Object[] actuals, String expectedMessage) {
         try {
             assertArrayEquals(expecteds, actuals);
